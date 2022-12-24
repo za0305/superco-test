@@ -14,7 +14,7 @@ dist
 upload
 deploy.log
 config.yml
-package-lock.json
+#package-lock.json
 
 # Compiled source #
 ###################

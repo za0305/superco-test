@@ -1,0 +1,117 @@
+{%- liquid
+    assign banners_title = section.settings.title
+    assign banners_bg = section.settings.banners_bg 
+-%}
+
+<section class="index-banners section_index-banners w-full py-[10px] md:py-9" {% if banners_bg and banners_bg != "#ffffff" %}style="background-color: {{banners_bg}}"{% endif %}>
+    {% if banners_title != blank %}
+        <h2 class="text-center text-[40px] md:text-5xl mb-8 md:mb-14">{{ banners_title }}</h2>
+    {% endif %}
+
+    <div class="container mx-auto {% if section.blocks.size == 2 %}md:columns-2{% else %}w-full{% endif %}">
+        {%- for block in section.blocks -%}
+            {%- liquid
+                assign banner_image = block.settings.image
+                assign banner_link = block.settings.banner_link
+                assign banner_title = block.settings.title
+                assign banner_link_text = block.settings.link_text                    
+            -%}
+
+            {%- if banner_image -%}
+        
+                <div class="banners_item w-full relative {% if section.blocks.size == 2 and forloop.first %}mb-5 md:mb-0{% endif %}">
+                    
+                    <div class="banners_item_image">
+                        {% render 'image', image:banner_image %}
+                    </div>
+
+                    {%- if banner_link_text != blank -%}
+                        <div class="banners_item_text absolute top-0 left-0 right-0 bottom-0 px-8 py-10 flex justify-center items-end">
+                    {%- else -%}
+                        <a href="{{ banner_link }}" class="banners_item_text absolute top-0 left-0 right-0 bottom-0 px-8 py-10 flex justify-center items-end">
+                    {%- endif -%}
+                        <div class="banners_item_text-inner text-center">
+                            {%- if banner_title != blank -%}
+                                <h2 class="text-invtitle text-3xl md:text-4xl mb-5">{{ banner_title }}</h3>
+                            {%- endif -%}
+
+                            {%- if banner_link_text != blank -%}
+                                <a class="uppercase underline-offset-4 tracking-widest text-sm underline text-invtitle hover:text-invtitle hover:font-bold" href="{{ banner_link }}">{{ banner_link_text }}</a>   
+                            {%- endif -%}
+                        </div>
+                    {%- if banner_link_text != blank -%}
+                        </div>
+                    {%- else -%}
+                        </a>
+                    {%- endif -%}
+
+                </div>   
+                
+            {%- endif -%}
+            
+        {%- endfor -%}
+
+    </div>
+
+</section>
+
+
+{% schema %}
+    {
+        "name": "Index Banners",
+        "class": "banner",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Banners"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "color",
+                "id": "banners_bg",
+                "label": "Background color",
+                "default": "#ffffff"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "banner",
+                "name": "Banner",
+                "limit": 2,
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Banner image",
+                        "info": "400px width & 500px height recommended"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Banner link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Card title"
+                    },
+                    {
+                        "type": "text",
+                        "id": "link_text",
+                        "label": "Link text"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Index Banners",
+                "blocks": []
+            }
+        ]
+    }
+{% endschema %}

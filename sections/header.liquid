@@ -1,0 +1,129 @@
+{%- liquid
+  assign company     = section.settings.company
+  assign top_menu    = section.settings.top_menu
+  assign logo        = section.settings.logo
+  assign header_info = section.settings.header_info
+  assign main_menu   = section.settings.main_menu		
+  assign header_bg   = section.settings.header_bg
+-%}
+
+<section class="header section_header w-full" id="main_header" style="background-color: {{ header_bg }}">
+	<div class="top-pannel border-b hidden md:block">
+		<div class="container mx-auto flex justify-between py-2">
+			<div class="company font-gtsupertexti">
+				{%- if company != blank -%}
+					<span>{{ company }}</span>
+				{%- endif -%}
+			</div>
+	
+			<div class="top-pannel_menu">
+				{%- if top_menu != blank -%}
+					<ul class="flex">
+						{% for link in linklists[top_menu].links %}
+							<li class="top-pannel_menu_item mx-2"><a href="{{ link.url }}" class="top-pannel_menu_link font-gtsupertexti">{{ link.title }}</a></li>
+						{% endfor %}
+					</ul>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+		
+	<div class="header-inner z-50 top-0 right-0 left-0 bg-bgcolor">
+		<div class="header-base container flex justify-between mx-auto flex-col py-4 px-5 md:py-6">
+			<div class="header_menu text-right">
+				{%- if main_menu != blank -%}
+					<ul class="main-menu flex justify-end items-center md:py-3">
+						{% for link in linklists[main_menu].links %}
+							<li class="main-menu_item mx-3 hidden md:block">
+								<a href="{{ link.url }}" class="main-menu_link uppercase whitespace-nowrap tracking-wider">{{ link.title }}</a>
+							</li>
+						{% endfor %}
+
+						<li class="mx-3">
+							<a href="#" class="" title="Search">{% render 'icons', icon: 'search' %}</a>
+						</li>
+
+						<li class="mx-3">
+							<a href="/cart" class="" title="Cart">{% render 'icons', icon: 'cart' %}</a>
+						</li>
+					
+						<li class="mobile_menu mx-3 cursor-pointer md:hidden">
+							{% render 'icons', icon: 'hamburger' %}
+						</li>
+					</ul>
+				{%- endif -%}
+			</div>
+
+			<div class="header_bottom flex justify-between flex-col md:flex-row pb-5 md:py-0 pt-5 md:py-5">
+				<div class="header-left">
+					{% comment %} <img class="header-logo" src="{{ logo | img_url: '920x' }}" class="logo"/> {% endcomment %}
+					<div class="logo fill-accent">
+						{% render 'icons', icon: 'logo' %}
+					</div>
+				</div>
+
+				<div class="header-right flex flex-col">
+					{%- if header_info -%}
+						<div class="header_info max-w-xs flex-grow flex items-center pl-20 md:pl-10 pt-5 md:pt-0">
+							<p class="">{{ header_info }}</p>
+						</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+{% schema %}
+	{
+		"name": "Header",
+		"class": "header",
+		"settings": [
+			{
+				"type": "header",
+				"content": "Top pannel"
+			},
+			{
+				"type": "text",
+				"id": "company",
+				"label": "Company name"
+			},
+			{
+				"type": "link_list",
+				"id": "top_menu",
+				"label": "Top pannel menu"
+			},
+			{
+				"type": "header",
+				"content": "Header"
+			}, 
+			{
+				"type": "image_picker",
+				"id": "logo",
+				"label": "Logo"
+			}, 
+			{
+				"type": "textarea",
+				"id": "header_info",
+				"label": "Header Info text"
+			},
+			{
+				"type": "link_list",
+				"id": "main_menu",
+				"label": "Main menu"
+			},
+			{
+                "type": "color",
+                "id": "header_bg",
+                "label": "Background color",
+                "default": "#ffffff"
+            }
+		],
+		"presets": [
+			{
+				"name": "Header"
+			}
+		]
+	}
+{% endschema %}

@@ -1,0 +1,129 @@
+{%- liquid
+    assign section_title = section.settings.title
+    assign section_bg = section.settings.section_bg  
+    assign collection_ob = collections[section.settings.collection]  
+    assign product_limit = section.settings.products
+    assign collection_link = section.settings.collection_link
+    assign link_text = section.settings.link_text
+-%}
+
+<section class="index-products-carousel section_index-products-carousel relative overflow-hidden w-full py-9" {% if section_bg and section_bg != "#ffffff" %}style="background-color: {{section_bg}}"{% endif %} >
+    {% if section_title != blank %}
+        <h2 class="text-center text-[40px] md:text-5xl mb-8 md:mb-14">{{ section_title }}</h2>
+    {% endif %}
+
+    <div class="w-4/5 md:w-full mx-auto before:content-[''] before:absolute before:top-0 before:bottom-0 before:-left-[10px] before:w-8 before:bg-gradient-to-l from-transparent to-bgpage before:z-10 after:content-[''] after:absolute after:top-0 after:bottom-0 after:-right-[10px] after:w-8 after:bg-gradient-to-r from-transparent to-bgpage after:z-10">
+        <div class="container mx-auto relative md:px-12">
+            <div class="md:overflow-hidden" id="index-products-carousel_{{ section.id }}">
+                <div class="swiper-wrapper columns-3">
+                    {%- for product in collection_ob.products limit: product_limit -%}
+                        <div class="product_item swiper-slide !h-auto bg-white">
+                            {% render 'product-list', product:product %}
+                        </div>
+                    
+                    {%- endfor -%}
+                </div>
+            </div>
+
+            <div class="swiper_arrow_left hidden md:block absolute top-[50%] left-0" id="swiper_arrow_left__{{ section.id }}">
+                {% render 'icons', icon: 'arrow_left' %}
+            </div>
+
+            <div class="swiper_arrow_right hidden md:block absolute top-[50%] right-0" id="swiper_arrow_right__{{ section.id }}">
+                {% render 'icons', icon: 'arrow_right' %}
+            </div>
+        </div>
+    </div>
+
+    {% if collection_link %}
+        <div class="product_carousel_bottom m-5 py-6 text-center">
+            <a class="uppercase underline-offset-4 tracking-widest text-sm underline hover:font-bold" href="{{ collection_ob.url }}">{{ link_text }}</a>
+        </div>
+    {% endif %}
+
+
+    <script type="text/javascript">
+        (function() {
+            let carouselContainer = document.getElementById('index-products-carousel_{{ section.id }}'),
+                arrowPrew = document.getElementById('swiper_arrow_left__{{ section.id }}'),
+                arrowNext = document.getElementById('swiper_arrow_right__{{ section.id }}');
+
+            let swiper = new Swiper(carouselContainer, {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 1,
+                navigation: {
+                    nextEl: arrowNext,
+                    prevEl: arrowPrew,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 3
+                    }
+                }
+            });
+        })();
+
+    </script>
+
+</section>
+
+
+{% schema %}
+    {
+        "name": "Index Products Carousel",
+        "class": "products",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Products Carousel"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Collection"
+            },
+            {
+                "type": "range",
+                "id": "products",
+                "label": "Product limit",
+                "min": 1,
+                "max": 12,
+                "step": 1,
+                "default": 6
+            },
+            {
+                "type": "color",
+                "id": "section_bg",
+                "label": "Background color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "checkbox",
+                "id": "collection_link",
+                "label": "Show Collection link",
+                "default": true
+            },
+            {
+                "type": "text",
+                "id": "link_text",
+                "label": "Link Text",
+                "default": "shop all"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Index Products Carousel",
+                "blocks": []
+            }
+        ]
+    }
+{% endschema %}

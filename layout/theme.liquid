@@ -1,0 +1,109 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="">
+		<link rel="canonical" href="{{ canonical_url }}">
+		<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+		{%- if settings.favicon != blank -%}
+			<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+		{%- endif -%}
+
+		{% if page_description %}
+			<meta name="description" content="{{ page_description | escape }}">
+		{% endif %}
+
+		{% render 'meta-tags' %}
+
+		<script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
+
+		{{ content_for_header }}
+
+		{%- style -%}
+			@font-face {
+				font-family: 'Platform';
+				src: url("{{ 'Platform-Regular-Web.woff' | asset_url }}") format("woff"), 
+				url("{{ 'Platform-Regular-Web.woff2' | asset_url }}") format("woff2"), 
+				url("{{ 'Platform-Regular.otf' | asset_url }}") format("woff2");
+				font-stretch: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'GTSuper';
+				src: url("{{ 'GT-Super-Display-Medium.woff' | asset_url }}") format("woff"), 
+				url("{{ 'GT-Super-Display-Medium.woff2' | asset_url }}") format("woff2"), 
+				url("{{ 'GT-Super-Display-Medium.ttf' | asset_url }}") format("truetype"), 
+				url("{{ 'GT-Super-Display-Medium.otf' | asset_url }}") format("opentype");
+				font-stretch: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'GTSuper-text';
+				src: url("{{ 'GT-Super-Text-Book.woff' | asset_url }}") format("woff"), 
+				url("{{ 'GT-Super-Text-Book.woff2' | asset_url }}") format("woff2"), 
+				url("{{ 'GT-Super-Text-Book.ttf' | asset_url }}") format("truetype"), 
+				url("{{ 'GT-Super-Text-Book.otf' | asset_url }}") format("opentype");
+				font-stretch: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'GTSuper-italic';
+				src: url("{{ 'GT-Super-Display-Medium-Italic.woff' | asset_url }}") format("woff"), 
+				url("{{ 'GT-Super-Display-Medium-Italic.woff2' | asset_url }}") format("woff2"), 
+				url("{{ 'GT-Super-Display-Medium-Italic.ttf' | asset_url }}") format("truetype"), 
+				url("{{ 'GT-Super-Display-Medium-Italic.otf' | asset_url }}") format("opentype");
+				font-stretch: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'GTSuper-text-italic';
+				src: url("{{ 'GT-Super-Text-Book-Italic.woff' | asset_url }}") format("woff"), 
+				url("{{ 'GT-Super-Text-Book-Italic.woff2' | asset_url }}") format("woff2"), 
+				url("{{ 'GT-Super-Text-Book-Italic.ttf' | asset_url }}") format("truetype"), 
+				url("{{ 'GT-Super-Text-Book-Italic.otf' | asset_url }}") format("opentype");
+				font-stretch: normal;
+				font-style: normal;
+			}
+
+			:root {
+				--accent_color:        {{ settings.accent_color }};
+				--background_color:    {{ settings.background_color }};
+				--background_page:     {{ settings.background_page }};
+				--text_color:          {{ settings.text_color }};
+				--title_color:         {{ settings.title_color }};
+				--text_color_inverted: {{ settings.text_color_inverted }};
+				--title_color_inverted:{{ settings.title_color_inverted }};
+				--link_color:          {{ settings.link_color }};
+				--link_hover_color:    {{ settings.link_hover_color }};
+			}
+		{%- endstyle -%}
+
+		{{ 'main.css' | asset_url | stylesheet_tag }}
+
+		{{ 'swiper.css' | asset_url | stylesheet_tag }}
+
+		<script src="{{ 'swiper.js' | asset_url }}"></script>
+
+	</head>
+
+	<body class="page-{{page.title | handleize }} bg-bgpage">
+
+		{% section 'header' %}
+
+		{% if template.name == 'index' %}
+			{% section 'index-banners' %}
+		{% endif %}
+
+		<main id="MainContent" class="content-for-layout focus-none px-2 md:px-0" role="main" tabindex="-1">
+			{{ content_for_layout }}
+		</main>
+
+	</body>
+</html>

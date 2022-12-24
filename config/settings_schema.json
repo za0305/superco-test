@@ -1,0 +1,88 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Superco Alexey",
+    "theme_version": "1.0.1",
+    "theme_author": "Alexey",
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/online-store\/themes",
+    "theme_support_url": "https:\/\/support.shopify.com\/" 
+  },
+  {
+    "name": "t:settings_schema.colors.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Base colors"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "default": "#E3FF21",
+        "label": "Accent Color"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#85ABBD",
+        "label": "Background Color"
+      },
+      {
+        "type": "color",
+        "id": "background_page",
+        "default": "#F4EDE5",
+        "label": "Page Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "default": "#000",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "default": "#000",
+        "label": "Title Color"
+      },
+      {
+        "type": "color",
+        "id": "text_color_inverted",
+        "default": "#FFFFFF",
+        "label": "Text Color Inverted"
+      },
+      {
+        "type": "color",
+        "id": "title_color_inverted",
+        "default": "#FFFFFF",
+        "label": "Title Color Inverted"
+      },
+      {
+        "type": "color",
+        "id": "link_color",
+        "default": "#000",
+        "label": "Link Color"
+      },
+      {
+        "type": "color",
+        "id": "link_hover_color",
+        "default": "#E3FF21",
+        "label": "Link Hover Color"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.favicon.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "t:settings_schema.favicon.settings.favicon.label",
+        "info": "t:settings_schema.favicon.settings.favicon.info"
+      }
+    ]
+  }
+]

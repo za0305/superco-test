@@ -1,0 +1,15 @@
+<a href="{{ product.url }}" class="w-full block">
+    <div class="product_image">
+        {% render 'image', image:product.featured_image %}
+    </div>
+
+    <div class="product_info flex justify-between p-5">
+        <div class="product_title font-gtsuperi text-titlecolor">
+            <span>{{ product.title }}</span>
+        </div>
+
+        <div class="product_price font-platform text-sm tracking-wider text-titlecolor">
+            <span>{{ product.price | money }}</span>
+        </div>
+    </div>
+</a>
